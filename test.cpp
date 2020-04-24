@@ -1,5 +1,5 @@
 #include "lab03.h"
-
+#include "svg.h"
 #include <cassert>
 
 void
@@ -44,10 +44,4 @@ void test_nothing(){
     assert(max == 3);
 }
 
-int
-main() {
-   test_positive();
-   test_negative();
-   test_same();
-   test_single();
-}
+
