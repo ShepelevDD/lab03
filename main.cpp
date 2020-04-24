@@ -1,6 +1,8 @@
 #include <iostream>
 #include <vector>
 #include "lab03.h"
+#include "svg.h"
+#include <string>
 using namespace std;
 
 vector<double>
@@ -62,17 +64,8 @@ void show_histogram_text(vector<size_t> bins)
 }
 }
 
-
-
-
-void svg_rect(double x, double y, double width, double height, string stroke = "black", string fill = "black")
-{
-  cout<<"<rect x='"<<x<<"' y='"<<y<<"' width='"<<width<<"' height='"<<height<<"' stroke='"<<stroke<<"' fill='"<<fill<<"' />";
-}
-
 void
-show_histogram_svg(const vector<size_t>& bins) {
-const auto IMAGE_WIDTH = 400;
+show_histogram_svg(const vector<size_t>& bins, size_t number_count) {
 const auto IMAGE_HEIGHT = 300;
 const auto TEXT_LEFT = 20;
 const auto TEXT_BASELINE = 20;
@@ -80,7 +73,16 @@ const auto TEXT_WIDTH = 50;
 const auto BIN_HEIGHT = 30;
 const auto BLOCK_WIDTH = 10;
 double top = 0;
-svg_begin(400, 300);
+size_t zadanie;
+cerr<<"image width: ";
+cin >> zadanie;
+	while (zadanie > 800 || zadanie < 70 || zadanie < (number_count * BLOCK_WIDTH/ 3))
+	{
+		cout << "Ooops! Try again: Width mustnt be less than 70, bigger than 800 or less than 1/3 of number count * 10. Enter image width: ";
+		cin >> zadanie;
+	}
+const auto IMAGE_WIDTH = zadanie;
+svg_begin(zadanie, 300);
 for (size_t bin : bins)
     {
     const double bin_width = BLOCK_WIDTH * bin;
@@ -107,6 +109,6 @@ int main()
 	cin >> bin_count;
     find_minmax(numbers, min, max);
     const auto bins = make_histogram(numbers, bin_count);
-    show_histogram_svg (bins);
+    show_histogram_svg (bins, number_count);
 	return 0;
 }
