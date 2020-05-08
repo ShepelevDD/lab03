@@ -127,6 +127,12 @@ main(int argc, char* argv[])
                         curl_easy_setopt(curl, CURLOPT_URL, argv[i]);
                         res = curl_easy_perform(curl);
                         curl_easy_cleanup(curl);
+                        if (res!=0)
+                        {
+                         string curl_error = curl_easy_strerror(res);
+                         cout<<curl_error;
+                         exit(1);
+                        }
                       };
     }
     else{
