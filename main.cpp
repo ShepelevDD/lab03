@@ -1,4 +1,5 @@
 #include <iostream>
+#include <curl/curl.h>
 #include <vector>
 #include "lab03.h"
 #include "svg.h"
@@ -115,6 +116,7 @@ for (size_t bin : bins)
 
 int main()
 {
+    curl_global_init(CURL_GLOBAL_ALL);
     const auto input = read_input(cin, true);
     const auto bins = make_histogram(input);
     show_histogram_svg (bins);
