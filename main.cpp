@@ -6,8 +6,6 @@
 using namespace std;
 
 
-
-
 vector<double>
 input_numbers(istream& in, size_t count)
   {
@@ -19,9 +17,10 @@ input_numbers(istream& in, size_t count)
   }
 
 Input
-read_input(istream& in) {
+read_input(istream& in,  bool prompt) {
     Input data;
-
+    if (prompt==true)
+    {
     size_t number_count;
     cerr << "Enter number count ";
 	cin >> number_count;
@@ -30,20 +29,28 @@ read_input(istream& in) {
     data.numbers = input_numbers(in, number_count);
     cerr << "Enter bucket count" << endl;
 	cin >> data.bin_count;
+    }
+    else
+    {size_t number_count;
+	cin >> number_count;
+	size_t bin_count;
+    data.numbers = input_numbers(in, number_count);
+	cin >> data.bin_count;
+    }
 	return data;
 }
 
-vector <size_t> make_histogram(const vector<double>& numbers, size_t bin_count)
+vector <size_t> make_histogram(struct Input data)
     {
         double min;
         double max;
 
-        find_minmax(numbers,min,max);
-        vector<size_t>bins(bin_count, 0);
-        for (double x : numbers)
+        find_minmax(data.numbers,min,max);
+        vector<size_t>bins(data.bin_count, 0);
+        for (double x : data.numbers)
 	  {
-		size_t bin_index = ((x - min) / (max - min)) * bin_count;
-		if (bin_index == bin_count)
+		size_t bin_index = ((x - min) / (max - min)) * data.bin_count;
+		if (bin_index == data.bin_count)
 		{
 			bin_index--;
 		}
@@ -84,7 +91,7 @@ void show_histogram_text(vector<size_t> bins)
 }
 
 void
-show_histogram_svg(const vector<size_t>& bins, size_t number_count) {
+show_histogram_svg(const vector<size_t>& bins) {
 const auto IMAGE_WIDTH = 400;
 const auto IMAGE_HEIGHT = 300;
 const auto TEXT_LEFT = 20;
@@ -108,14 +115,8 @@ for (size_t bin : bins)
 
 int main()
 {
-	const size_t SCREEN_WIDTH = 80;
-	const size_t MAX_ASTERISK = SCREEN_WIDTH - 4 - 1;
-	size_t number_count;
-	double min, max;
-    size_t bin_count;
-    Input data = read_input(cin);
-    find_minmax(data.numbers, min, max);
-    const auto bins = make_histogram(data.numbers, data.bin_count);
-    show_histogram_svg (bins, number_count);
+    const auto input = read_input(cin, true);
+    const auto bins = make_histogram(input);
+    show_histogram_svg (bins);
 	return 0;
 }
