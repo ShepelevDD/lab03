@@ -111,5 +111,6 @@ int main()
     const auto bins = make_histogram(numbers, bin_count);
     show_histogram_svg (bins, number_count);
 
+
 	return 0;
 }
