@@ -5,6 +5,10 @@
 #include "svg.h"
 #include <string>
 #include <sstream>
+#include <windows.h>
+
+DWORD WINAPI GetVersion(void);
+
 using namespace std;
 
 
@@ -147,7 +151,8 @@ download(const string& address) {
 
 int
 main(int argc, char* argv[])
-{
+{   printf("%u",GetVersion()); // 01234567
+
     Input input;
     if (argc > 1) {
         input = download(argv[1]);
