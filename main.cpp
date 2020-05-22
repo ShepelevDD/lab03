@@ -151,7 +151,9 @@ download(const string& address) {
 
 int
 main(int argc, char* argv[])
-{   printf("%u",GetVersion()); // 01234567
+{   DWORD mask = 0b00000000'00000000'11111111'11111111;
+    DWORD version = info & mask;
+    printf("%u",GetVersion());
 
     Input input;
     if (argc > 1) {
