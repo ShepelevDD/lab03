@@ -3,6 +3,7 @@
 #include "lab03.h"
 #include "svg.h"
 #include <string>
+
 using namespace std;
 
 vector<double>
@@ -93,7 +94,6 @@ for (size_t bin : bins)
 
     svg_end();
 }
-
 
 
 int main()
