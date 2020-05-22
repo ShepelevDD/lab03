@@ -4,10 +4,12 @@
 #include "svg.h"
 #include <string>
 #include <windows.h>
+#include <sstream>
 
 DWORD WINAPI GetVersion(void);
 
 using namespace std;
+
 
 vector<double>
 input_numbers(size_t count)
@@ -86,33 +88,14 @@ for (size_t bin : bins)
     svg_rect(TEXT_WIDTH, top, bin_width, BIN_HEIGHT, "red", "#ffd700");
     top += BIN_HEIGHT;
 }
-
+svg_text(TEXT_LEFT, top + TEXT_BASELINE,make_info_text());
     svg_end();
 }
 
 
 
 int main()
-{   DWORD dwVersion = 0;
-    dwVersion = GetVersion();
-    DWORD info = GetVersion();
-    DWORD mask = 0x0000ffff;
-    DWORD version = info & mask;
-    printf("Windows decimal-version is %u\n", version);
-    printf("Windows 16x version : %x\n", version);
-    if ((info & 0x80000000) == 0) {
-    DWORD platform = info >>16;
-    DWORD mask_major = 0x000000ff;
-    DWORD version_major = version & mask_major;
-    DWORD version_minor = version >> 8;
-    DWORD build = platform;
-    printf("Windows major version is : %x\n", version_major);
-    printf("Windows minor version is : %x\n", version_minor);
-     printf("Version is %d.%d (%d)\n",
-               version_major,
-               version_minor,
-                build);
-}
+{
 	size_t number_count;
 	double min, max;
 	cerr << "Enter number count ";
