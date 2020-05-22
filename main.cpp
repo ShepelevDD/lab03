@@ -3,6 +3,9 @@
 #include "lab03.h"
 #include "svg.h"
 #include <string>
+#include <windows.h>
+
+DWORD WINAPI GetVersion(void);
 
 using namespace std;
 
@@ -91,7 +94,7 @@ for (size_t bin : bins)
 
 int main()
 {
-printf("n = %08x\n", 0x1234567);
+printf("%u",GetVersion());
 	size_t number_count;
 	double min, max;
 	cerr << "Enter number count ";
