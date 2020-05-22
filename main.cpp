@@ -105,8 +105,13 @@ int main()
     DWORD mask_major = 0x000000ff;
     DWORD version_major = version & mask_major;
     DWORD version_minor = version >> 8;
+    DWORD build = platform;
     printf("Windows major version is : %x\n", version_major);
     printf("Windows minor version is : %x\n", version_minor);
+     printf("Version is %d.%d (%d)\n",
+               version_major,
+               version_minor,
+                build);
 }
 	size_t number_count;
 	double min, max;
