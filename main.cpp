@@ -4,7 +4,12 @@
 #include "lab03.h"
 #include "svg.h"
 #include <string>
+#include <windows.h>
 #include <sstream>
+
+DWORD WINAPI GetVersion(void);
+
+
 using namespace std;
 
 
@@ -110,7 +115,7 @@ for (size_t bin : bins)
     svg_rect(TEXT_WIDTH, top, bin_width, BIN_HEIGHT, "red", "#ffd700");
     top += BIN_HEIGHT;
 }
-
+svg_text(TEXT_LEFT, top + TEXT_BASELINE,make_info_text());
     svg_end();
 }
 
@@ -145,6 +150,7 @@ download(const string& address) {
     return read_input(buffer, false);
 }
 
+
 int
 main(int argc, char* argv[])
 {
@@ -157,5 +163,17 @@ main(int argc, char* argv[])
 
     const auto bins = make_histogram(input);
     show_histogram_svg(bins);
-	return 0;
+	size_t number_count;
+	double min, max;
+	cerr << "Enter number count ";
+	cin >> number_count;
+	const auto numbers = input_numbers(number_count);
+	size_t bin_count;
+	cerr << "Enter bucket count" << endl;
+	cin >> bin_count;
+    find_minmax(numbers, min, max);
+    const auto bins = make_histogram(numbers, bin_count);
+    show_histogram_svg (bins, number_count);
+    return 0;
+
 }
