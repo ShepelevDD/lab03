@@ -26,14 +26,17 @@ void svg_rect(double x, double y, double width, double height, string stroke, st
   cout<<"<rect x='"<<x<<"' y='"<<y<<"' width='"<<width<<"' height='"<<height<<"' stroke='"<<stroke<<"' fill='"<<fill<<"' />";
 }
 
-double zadanie (size_t number_count, double BLOCK_WIDTH, double idz )
-{
-	while (idz > 800 || idz < 70 || idz< (number_count * BLOCK_WIDTH/ 3))
-	{
-		cout << "Ooops! Try again: Width mustnt be less than 70, bigger than 800 or less than 1/3 of number count * 10. Enter image width: ";
-		cin >> idz;
-	}
-    return idz;
+
+string custome_width(double width, double BLOCK_WIDTH, size_t number_count) {
+    string str;
+    if (width < 70)
+        str = "Ooops! Width < 70. Enter the width again:";
+    else if (width > 800)
+        str = "Ooops! Width > 800. Enter the width again:";
+    else if (width < BLOCK_WIDTH*number_count/3)
+        str = "Ooops! Width < BLOCK_WIDTH*number_count/3. Enter the width again:";
+    return str;
+
 }
 
 
@@ -46,10 +49,13 @@ const auto BIN_HEIGHT = 30;
 const auto BLOCK_WIDTH = 10;
 double top = 0;
 double IMAGE_WIDTH;
-double idz;
-cerr<<"image width: ";
-cin>>idz;
-IMAGE_WIDTH=zadanie(number_count, BLOCK_WIDTH, idz);
+   cerr << "Enter width:";
+    cin >> IMAGE_WIDTH;
+    while (IMAGE_WIDTH < 70 || IMAGE_WIDTH > 800 || IMAGE_WIDTH  < BLOCK_WIDTH*number_count/3)
+    {
+        cerr << custome_width(IMAGE_WIDTH, BLOCK_WIDTH, number_count);
+        cin >> IMAGE_WIDTH;
+    }
 svg_begin(IMAGE_WIDTH, IMAGE_HEIGHT);
 for (size_t bin : bins)
     {
