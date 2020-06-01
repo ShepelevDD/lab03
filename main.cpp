@@ -12,7 +12,6 @@ DWORD WINAPI GetVersion(void);
 
 using namespace std;
 
-
 vector<double>
 input_numbers(istream& in, size_t count)
   {
