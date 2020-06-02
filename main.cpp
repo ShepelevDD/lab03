@@ -124,7 +124,7 @@ write_data(void* items, size_t item_size, size_t item_count, void* ctx) {
     size_t data_size = item_size * item_count;
      stringstream* buffer = reinterpret_cast<stringstream*>(ctx);
     buffer->write(reinterpret_cast<const char*>(items), data_size);
-    return 0;
+    return data_size;
 }
 
 Input
@@ -132,7 +132,7 @@ download(const string& address) {
     stringstream buffer;
     curl_global_init(CURL_GLOBAL_ALL);
        CURL *curl = curl_easy_init();
-             if(curl) {
+             if(curl) { double total;
                         CURLcode res;
                         curl_easy_setopt(curl, CURLOPT_URL, address.c_str());
                         curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, write_data);
@@ -143,6 +143,12 @@ download(const string& address) {
                          cout<<curl_easy_strerror(res);
                          exit(1);
                         }
+                         if(CURLE_OK == res) {
+                         res = curl_easy_getinfo(curl, CURLINFO_TOTAL_TIME, &total);
+                         if(CURLE_OK == res) {
+                                               printf("Time: %.1f", total);
+                                             }
+                                           }
                         curl_easy_cleanup(curl);
                       };
 
