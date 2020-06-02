@@ -52,8 +52,10 @@ string make_info_text(){
   char comp_name [MAX_COMPUTERNAME_LENGTH+1];
   DWORD size = sizeof(comp_name);
   GetComputerNameA(comp_name, &size);
-
-  buffer <<"Computer name:"<< comp_name;
+  GetSystemDirectory(system_dir, MAX_PATH);
+  printf("System directory: %s", system_dir);
+  buffer <<"Computer name:"<< comp_name<<endl;
+  buffer<<"Windows "<<system_dir;
 }
 
     // TODO: получить версию системы, записать в буфер.
